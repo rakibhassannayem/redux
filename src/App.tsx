@@ -1,11 +1,17 @@
 import { Minus, Plus, RefreshCcw } from "lucide-react";
 import { Button } from "./components/ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./redux/counter/counterSlice";
+import {
+  decrement,
+  increment,
+  incrementByValue,
+  reset,
+  selectValue,
+} from "./redux/counter/counterSlice";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
 function App() {
-  const value = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+  const value = useAppSelector(selectValue);
+  const dispatch = useAppDispatch();
 
   return (
     <main className="flex items-center justify-center h-screen bg-gray-50">
@@ -30,7 +36,11 @@ function App() {
             <Minus color="gray" />
           </Button>
 
-          <Button variant={"ghost"} size={"icon"}>
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            onClick={() => dispatch(reset())}
+          >
             <RefreshCcw color="gray" />
           </Button>
 
@@ -40,6 +50,30 @@ function App() {
             onClick={() => dispatch(increment())}
           >
             <Plus color="gray" />
+          </Button>
+
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => dispatch(incrementByValue(5))}
+          >
+            <Plus color="gray" />5
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => dispatch(incrementByValue(5))}
+          >
+            <Plus color="gray" />5
+          </Button>
+
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => dispatch(incrementByValue(10))}
+          >
+            <Plus color="gray" />
+            10
           </Button>
         </div>
       </section>
